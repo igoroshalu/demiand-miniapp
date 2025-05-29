@@ -152,7 +152,7 @@ function renderRecipe(d){
     <div class="download-wrap">
       <a href="https://redirect.appmetrica.yandex.com/serve/29332028361031991"
          target="_blank" class="download-btn">
-        Полная версия&nbsp;рецепта в&nbsp;приложении&nbsp;↗︎
+        111Полная версия&nbsp;рецепта в&nbsp;приложении&nbsp;↗︎
       </a>
     </div>`;
 
