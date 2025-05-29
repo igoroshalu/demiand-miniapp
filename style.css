@@ -1,0 +1,121 @@
+/* ---------- palette ---------- */
+:root{
+    --accent:#ff0d25; --bg:#121212; --tile:#1f1f1f; --tile-sec:#292929;
+    --txt:#f7f7f7;    --txt-sec:#bdbdbd; --radius:12px;
+   }
+   html.light{
+    --accent:#ff0d25; --bg:#f5f5f5; --tile:#ffffff; --tile-sec:#e9e9e9;
+    --txt:#111;       --txt-sec:#555;
+   }
+   
+   *{box-sizing:border-box;margin:0;padding:0}
+   body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+   
+   /* ---------- список ---------- */
+   header{display:flex;gap:8px;padding:8px 12px;overflow-x:auto}
+   header button{
+     flex:0 0 auto;border:none;border-radius:25px;padding:8px 20px;font-size:15px;
+     background:transparent;color:var(--txt-sec);cursor:pointer;white-space:nowrap;
+   }
+   header button.active{background:var(--accent);color:#fff;font-weight:600}
+   html.light header button:not(.active){background:var(--tile-sec);color:var(--txt)}
+   
+   #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48%,1fr));gap:12px;padding:12px}
+   .card{background:var(--tile);border-radius:var(--radius);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 0 12px rgba(0,0,0,.1)}
+   .card img{width:100%;height:140px;object-fit:cover}
+   .card h4{font-size:15px;font-weight:500;padding:8px 10px;min-height:46px}
+   .meta{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--txt-sec);padding:0 10px 10px}
+   .meta svg{width:14px;height:14px;fill:var(--txt-sec)}
+   
+   /* ---------- modal ---------- */
+   #modal{position:fixed;inset:0;background:var(--bg);color:var(--txt);overflow-y:auto;transform:translateX(100%);transition:.3s;z-index:3}
+   #modal.open{transform:none}
+   
+   .closeBtn{
+     position:fixed;top:10px;right:10px;width:40px;height:40px;border:none;border-radius:50%;
+     display:flex;align-items:center;justify-content:center;
+     background:var(--accent);color:#fff;font-size:24px;cursor:pointer;z-index:5;
+   }
+   
+   /* hero */
+   .hero img{width:100%;aspect-ratio:1/1;object-fit:cover}
+   
+   /* universal tile */
+   .tile{background:var(--tile-sec);border-radius:var(--radius);padding:12px 16px;margin:0 16px 16px}
+   .tile h3{font-size:18px;margin-bottom:10px;font-weight:600}
+   
+   /* title + time */
+   .title-tile{text-align:center;background:none}
+   .title-tile h1{font-size:24px;margin-bottom:4px}
+   .hero-meta{display:inline-flex;align-items:center;gap:4px;font-size:15px}
+   .hero-meta svg{width:16px;height:16px;fill:currentColor}
+   
+   /* badges */
+   .badge-row{display:flex;gap:6px;padding:0 16px 8px;flex-wrap:wrap}
+   .badge{background:var(--tile-sec);border-radius:6px;padding:4px 8px;font-size:13px;white-space:nowrap}
+   
+   /* nutri */
+   .nutri{display:flex;justify-content:space-between;gap:12px;text-align:center}
+   .nutri-item{flex:1}
+   .nutri-item strong{display:block;font-size:18px;font-weight:600}
+   .nutri-item span{font-size:13px;color:var(--txt-sec)}
+   
+   /* description */
+   .desc{font-size:16px;line-height:1.6;color:var(--txt)}
+   
+   /* ingredients */
+   .ing{list-style:none}
+   .ing li{
+     display:flex;justify-content:space-between;line-height:1.8;padding:6px 0;
+     border-bottom:1px solid rgba(255,255,255,.08);
+   }
+   html.light .ing li{border-bottom:1px solid rgba(0,0,0,.06)}
+   .ing li:last-child{border-bottom:none;font-size:16px}
+   
+   /* steps / advises */
+   .step-card,.advice-card{background:var(--tile-sec);border-radius:var(--radius);margin:0 16px 16px;overflow:hidden;box-shadow:0 0 12px rgba(0,0,0,.2)}
+   .step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+   .step-card p{padding:10px 14px 18px;font-size:16px;line-height:1.6} 
+   .step-card ul{padding:0 20px;font-size:16px;line-height:1.6}
+   
+   /* download button */
+   .download-wrap{margin:0 16px 16px}
+   .download-btn{
+     display:block;text-align:center;background:var(--accent);color:#fff;
+     font-weight:600;font-size:16px;padding:14px 0;border-radius:var(--radius);text-decoration:none;
+   }
+   .download-btn:active{opacity:.85}
+   
+   /* video */
+   video{width:100%;margin:0 0 24px;border-radius:var(--radius)}
+   
+   /* scrollbar */
+   ::-webkit-scrollbar{width:4px}
+   ::-webkit-scrollbar-thumb{background:#444;border-radius:4px}
+   
+
+
+/* ---------- Закрываем каждый третий рецепт ---------- */
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48%,1fr));gap:12px;padding:12px}
+.card{
+  position:relative;                 /* ⬅︎ нужно для ::after */
+  background:var(--tile);
+  border-radius:var(--radius);
+  overflow:hidden;
+  cursor:pointer;display:flex;flex-direction:column;
+  box-shadow:0 0 12px rgba(0,0,0,.1);
+}
+.card img{width:100%;height:140px;object-fit:cover}
+
+/* ►►  замороженная карточка  ◄◄ */
+.card.locked   { cursor:pointer; }          /* рука-курсор, чтобы было понятно, что жмётся */
+.card.locked img{ filter:blur(4px) brightness(.6); }
+
+/* overlay теперь принимает клик */
+.card.locked::after{
+  content:"Этот рецепт доступен только в мобильном приложении DEMIAND";
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:0 12px;text-align:center;font-size:14px;font-weight:600; padding-bottom: 70px;
+  color:#fff;background:rgba(0,0,0,.55);
+  /*  убираем pointer-events:none, чтобы клик доходил до .card  */
+}
