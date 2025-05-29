@@ -7,7 +7,7 @@
     const REDIRECT = 'https://redirect.appmetrica.yandex.com/serve/29332028361031991';
     if (!ENABLE_LOCK) return;
   
-    const openRecipeFn = window.openRecipe;   // запоминаем оригинал
+    const openRecipeFn = window.openRecipe;   // запоминаем оригиналлл
   
     /* true, если последние две цифры UID кратны 3 */
     const mustLock = uid => {
