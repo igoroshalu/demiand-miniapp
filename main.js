@@ -7,15 +7,22 @@ const URL_DETAIL = uid => API + '/get-recipe/' + uid;
 let recipes = [];           // карточки
 let filters = ['Все'];      // «Все» + уникальные категории
 let currentFilter = 'Все';
+let searchQuery = '';
 
 /* ---------- 2.  DOM ---------- */
 const filtersEl    = document.getElementById('filters');
 const gridEl       = document.getElementById('grid');
 const modalEl      = document.getElementById('modal');
 const modalContent = document.getElementById('modalContent');
+const searchInput  = document.getElementById('searchInput');
 /* --- ✱  ОБНОВЛЁННЫЙ closeBtn  (не закрывает мини-ап) --- */
 document.querySelector('.closeBtn').onclick = () =>
   document.getElementById('modal').classList.remove('open');
+
+searchInput.oninput = () => {
+  searchQuery = searchInput.value.toLowerCase();
+  renderGrid();
+};
 
 
 /* ---------- 3.  Загрузка списка ---------- */
@@ -64,6 +71,7 @@ function renderGrid() {
   gridEl.innerHTML = '';
   recipes
     .filter(r => currentFilter === 'Все' || r.cats.includes(currentFilter))
+    .filter(r => r.title.toLowerCase().includes(searchQuery))
     .forEach(r => {
       const card = document.createElement('div');
       card.className = 'card';

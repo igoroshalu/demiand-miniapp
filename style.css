@@ -13,6 +13,12 @@
    
    /* ---------- список ---------- */
    header{display:flex;gap:8px;padding:8px 12px;overflow-x:auto}
+   #search-wrap{padding:8px 12px}
+   #searchInput{
+     width:100%;padding:8px 16px;border-radius:25px;border:none;
+     background:var(--tile-sec);color:var(--txt);
+   }
+   #searchInput::placeholder{color:var(--txt-sec)}
    header button{
      flex:0 0 auto;border:none;border-radius:25px;padding:8px 20px;font-size:15px;
      background:transparent;color:var(--txt-sec);cursor:pointer;white-space:nowrap;
